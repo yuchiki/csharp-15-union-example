@@ -5,14 +5,14 @@ namespace csharp_nine_adt
     {
         static void Main(string[] args)
         {
+            // 3 * 2 + 20 / 5 = 10
+            Console.WriteLine(calc(myExpr1));
+
             // いい感じの文字列化がなされる
             Console.WriteLine(myExpr1);
 
             // (参照ではなくて)値に基づいて等価性比較がなされるので True
             Console.WriteLine(myExpr1 == myExpr2);
-
-            // 3 * 2 + 20 / 5 = 10
-            Console.WriteLine(calc(myExpr1));
         }
 
         static Expr myExpr1 =
