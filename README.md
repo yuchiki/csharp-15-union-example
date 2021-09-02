@@ -1,6 +1,6 @@
 # csharp-nine-adt
 
-私か書いたQiita記事 (ここにリンクが入る)で説明に用いたプログラムです。
+私か書いたQiita記事 [C# 9.0でHaskellの代数的データ型(ADT)的な書き方をする](https://qiita.com/yuchiki1000yen/items/b61e9ad6f2c3716635f4)で説明に用いたプログラムです。
 
 ## 実行方法
 
