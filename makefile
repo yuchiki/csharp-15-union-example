@@ -5,8 +5,8 @@ default: run
 build:
 	dotnet build
 
-run: build
-	dotnet bin/Debug/net5.0/csharp-nine-adt.dll
+run:
+	dotnet run --project csharp-15-adt.csproj
 
 clean:
-	rm -rf bin obj
+	dotnet clean
