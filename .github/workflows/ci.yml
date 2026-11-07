@@ -22,15 +22,7 @@ jobs:
         run: dotnet restore csharp-15-adt.csproj
       - name: Build
         run: dotnet build csharp-15-adt.csproj --configuration Release --no-restore
+      - name: Lint shell scripts
+        run: shellcheck scripts/*.sh
       - name: Verify sample output
-        shell: bash
-        run: |
-          expected=$'10\nAdd(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))'
-          actual="$(dotnet run --project csharp-15-adt.csproj --configuration Release --no-build)"
-
-          if [[ "$actual" != "$expected" ]]; then
-            printf 'Expected:\n%s\n\nActual:\n%s\n' "$expected" "$actual"
-            exit 1
-          fi
-
-          printf '%s\n' "$actual"
+        run: bash scripts/verify-output.sh
