@@ -19,9 +19,15 @@ jobs:
         with:
           dotnet-version: 11.0.100-rc.3.26522.148
       - name: Restore
-        run: dotnet restore csharp-15-adt.csproj
+        run: dotnet restore tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj
+      - name: Check formatting
+        run: |
+          dotnet format csharp-15-adt.csproj --verify-no-changes --no-restore
+          dotnet format tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj --verify-no-changes --no-restore
       - name: Build
-        run: dotnet build csharp-15-adt.csproj --configuration Release --no-restore
+        run: dotnet build tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj --configuration Release --no-restore
+      - name: Test
+        run: dotnet test tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj --configuration Release --no-build
       - name: Lint shell scripts
         run: shellcheck scripts/*.sh
       - name: Verify sample output
