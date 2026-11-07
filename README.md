@@ -57,5 +57,4 @@ dotnet run --project csharp-15-adt.csproj
 ```text
 10
 Add(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))
-True
 ```
