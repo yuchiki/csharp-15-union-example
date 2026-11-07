@@ -1,5 +1,6 @@
-using CSharp15Adt;
+using static CSharp15Adt.ExpressionOperations;
+using static CSharp15Adt.ExpressionSamples;
 
-Console.WriteLine(ExpressionOperations.Calculate(ExpressionSamples.Expression1));
-Console.WriteLine(ExpressionOperations.Format(ExpressionSamples.Expression1));
-Console.WriteLine(ExpressionSamples.Expression1.Equals(ExpressionSamples.Expression2));
+Console.WriteLine(Calculate(Expression1));
+Console.WriteLine(Format(Expression1));
+Console.WriteLine(Expression1 == Expression2);

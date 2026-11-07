@@ -6,7 +6,16 @@ internal sealed record Sub(Expr Left, Expr Right);
 internal sealed record Mul(Expr Left, Expr Right);
 internal sealed record Div(Expr Left, Expr Right);
 
-internal union Expr(CInt, Add, Sub, Mul, Div);
+internal union Expr(CInt, Add, Sub, Mul, Div)
+{
+    public override bool Equals(object? other) =>
+        other is Expr expression && object.Equals(Value, expression.Value);
+
+    public override int GetHashCode() => Value?.GetHashCode() ?? 0;
+
+    public static bool operator ==(Expr left, Expr right) => left.Equals(right);
+    public static bool operator !=(Expr left, Expr right) => !left.Equals(right);
+}
 
 internal static class ExpressionSamples
 {

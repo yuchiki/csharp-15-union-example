@@ -18,6 +18,8 @@ internal union Expr(CInt, Add, Sub, Mul, Div);
 
 各ケースから `Expr` への暗黙変換があり、コンパイラーは union の全ケースを把握します。そのため、全ケースを処理する `switch` 式に `_` は不要です。ケースを追加したのに `switch` へ追加し忘れた場合もコンパイラーが検出します。
 
+各ケースを `sealed record` にしているのは、`CInt` や `Add` の派生型によってケースの内側へ別の選択肢が追加されることを防ぎ、ADT の選択肢を `Expr` に列挙した5種類へ閉じるためです。公式資料の例のように `sealed` を省略しても union としては動作しますが、このサンプルでは閉じた式の種類を表す意図を優先しています。
+
 詳しくは Microsoft の公式資料を参照してください。
 
 - [C# 15 の新機能](https://learn.microsoft.com/dotnet/csharp/whats-new/)
