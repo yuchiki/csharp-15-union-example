@@ -1,11 +1,5 @@
-namespace CSharp15Adt;
+using CSharp15Adt;
 
-internal static class Program
-{
-    private static void Main()
-    {
-        Console.WriteLine(ExpressionOperations.Calculate(ExpressionSamples.Expression1));
-        Console.WriteLine(ExpressionOperations.Format(ExpressionSamples.Expression1));
-        Console.WriteLine(ExpressionSamples.Expression1.Equals(ExpressionSamples.Expression2));
-    }
-}
+Console.WriteLine(ExpressionOperations.Calculate(ExpressionSamples.Expression1));
+Console.WriteLine(ExpressionOperations.Format(ExpressionSamples.Expression1));
+Console.WriteLine(ExpressionSamples.Expression1.Equals(ExpressionSamples.Expression2));
