@@ -46,4 +46,12 @@ public sealed class ExpressionOperationsTests
             "Add(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))",
             Format(expression));
     }
+
+    [Fact]
+    public void FormatRendersSubtraction()
+    {
+        Expr expression = new Sub(new CInt(5), new CInt(3));
+
+        Assert.Equal("Sub(CInt(5), CInt(3))", Format(expression));
+    }
 }
