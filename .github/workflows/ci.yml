@@ -14,10 +14,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
-      - name: Set up .NET
-        uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: 11.0.100-rc.3.26522.148
+      - name: Set up tools
+        uses: jdx/mise-action@v5
       - name: Restore
         run: dotnet restore tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj
       - name: Check formatting
@@ -30,5 +28,7 @@ jobs:
         run: dotnet test tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj --configuration Release --no-build
       - name: Lint shell scripts
         run: shellcheck scripts/*.sh
+      - name: Lint GitHub Actions workflows
+        run: actionlint
       - name: Verify sample output
         run: bash scripts/verify-output.sh
