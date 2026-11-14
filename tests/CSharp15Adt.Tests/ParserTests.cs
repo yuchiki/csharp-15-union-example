@@ -9,7 +9,7 @@ public sealed class ParserTests
     [Theory]
     [InlineData('(')]
     [InlineData('+')]
-    public void ParseAcceptsMaximumNesting(char prefix)
+    public void ParseAcceptsNestedExpression(char prefix)
     {
         var text = new string(prefix, 64) + "1";
         if (prefix == '(')
@@ -18,20 +18,6 @@ public sealed class ParserTests
         }
 
         Assert.Equal(1, Calculate(Parser.Parse(text)));
-    }
-
-    [Theory]
-    [InlineData('(')]
-    [InlineData('-')]
-    public void ParseRejectsExcessiveNesting(char prefix)
-    {
-        var text = new string(prefix, 65) + "1";
-        if (prefix == '(')
-        {
-            text += new string(')', 65);
-        }
-
-        Assert.Contains("maximum nesting depth", Assert.Throws<FormatException>(() => Parser.Parse(text)).Message);
     }
 
     [Fact]

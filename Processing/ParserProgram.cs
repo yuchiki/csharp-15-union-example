@@ -2,28 +2,16 @@ namespace CSharp15Adt.Processing;
 
 internal static class ParserProgram
 {
-    internal static int Run(TextReader input, TextWriter output, TextWriter error, params string[] arguments)
+    internal static int Run(TextWriter output, TextWriter error, params string[] arguments)
     {
         try
         {
-            if (arguments.Length > 1)
+            if (arguments.Length != 1)
             {
                 throw new FormatException("Pass the expression as one quoted argument.");
             }
 
-            string text;
-            if (arguments.Length == 1)
-            {
-                text = arguments[0];
-            }
-            else
-            {
-                var buffer = new char[Parser.MaximumInputLength + 1];
-                var count = input.ReadBlock(buffer, 0, buffer.Length);
-                text = new string(buffer, 0, count);
-            }
-
-            var expression = Parser.Parse(text);
+            var expression = Parser.Parse(arguments[0]);
             output.WriteLine(ExpressionOperations.Calculate(expression));
             return 0;
         }

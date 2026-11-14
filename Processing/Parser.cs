@@ -5,11 +5,8 @@ namespace CSharp15Adt.Processing;
 
 internal sealed class Parser
 {
-    internal const int MaximumInputLength = 1024;
-    private const int MaximumDepth = 64;
     private readonly string _input;
     private int _position;
-    private int _depth;
     private bool IsEOL => _position == _input.Length;
 
     private Parser(string input) => _input = input;
@@ -17,10 +14,6 @@ internal sealed class Parser
     internal static Expr Parse(string input)
     {
         ArgumentNullException.ThrowIfNull(input);
-        if (input.Length > MaximumInputLength)
-        {
-            throw new FormatException($"Input exceeds {MaximumInputLength} characters at position {MaximumInputLength}.");
-        }
         var parser = new Parser(input);
         var expression = parser.ParseExpression();
         parser.SkipWhitespace();
@@ -67,24 +60,6 @@ internal sealed class Parser
     // factor = ('+' | '-') factor | '(' expression ')' | integer
     private Expr ParseFactor()
     {
-        if (_depth > MaximumDepth)
-        {
-            throw Error($"Expression exceeds maximum nesting depth {MaximumDepth}");
-        }
-
-        _depth++;
-        try
-        {
-            return ParseFactorCore();
-        }
-        finally
-        {
-            _depth--;
-        }
-    }
-
-    private Expr ParseFactorCore()
-    {
         if (Consume('+'))
         {
             return ParseFactor();
@@ -106,6 +81,11 @@ internal sealed class Parser
             return expression;
         }
 
+        return ParseInteger();
+    }
+
+    private Expr ParseInteger()
+    {
         SkipWhitespace();
         var start = _position;
         while (!IsEOL && char.IsAsciiDigit(_input[_position]))

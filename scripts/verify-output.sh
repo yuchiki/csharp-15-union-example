@@ -3,7 +3,7 @@
 set -euo pipefail
 
 readonly expected='10'
-actual="$(printf '%s\n' '3 * 2 + 20 / 5' | dotnet run --project csharp-15-adt.csproj --configuration Release --no-build)"
+actual="$(dotnet run --project csharp-15-adt.csproj --configuration Release --no-build -- '3 * 2 + 20 / 5')"
 readonly actual
 
 if [[ "$actual" != "$expected" ]]; then
