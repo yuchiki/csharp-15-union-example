@@ -18,11 +18,11 @@ internal union Expr(CInt, Add, Sub, Mul, Div);
 
 ## 実行方法
 
-`Program.cs` では `Parser.Parse("3 * 2 + 20 / 5")` で式木を作り、評価と文字列整形を行います。パーサーは整数（0〜2147483647）、四則演算、括弧、単項の `+` / `-`、空白に対応します。乗除算は加減算より優先され、同じ優先順位の二項演算は左結合です。負号は `Sub(CInt(0), ...)` として表現します。不正な入力は位置付きの `FormatException` になります。
+標準入力全体を1つの式として読み、パースした式木を標準出力へ返します。計算は行いません。パーサーは整数（0〜2147483647）、四則演算、括弧、単項の `+` / `-`、空白に対応します。乗除算は加減算より優先され、同じ優先順位の二項演算は左結合です。負号は `Sub(CInt(0), ...)` として表現します。不正な入力では位置付きメッセージを標準エラーへ出し、終了コード1を返します。成功時の終了コードは0です。
 
 - `Data/`: union とケースのデータ定義
 - `Processing/`: パーサー、評価、文字列整形
-- `Program.cs`: 文字列のパースから始める使用例
+- `Program.cs`: 標準入出力を使うエントリーポイント
 
 ### 前提
 
@@ -41,16 +41,26 @@ dotnet --version
 ### ビルドと実行
 
 ```console
-make
+printf '3 * 2 + 20 / 5\n' | make
 ```
 
 または次のコマンドで直接実行できます。
 
 ```console
-dotnet run --project csharp-15-adt.csproj
+printf '3 * 2 + 20 / 5\n' | dotnet run --project csharp-15-adt.csproj
 ```
 
 ```text
-10
 Add(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))
 ```
+
+手入力する場合は式を入力した後、EOF（macOS/Linux では Ctrl+D）を送信してください。
+
+### テスト
+
+```console
+mise exec -- dotnet test tests/CSharp15Adt.Tests/CSharp15Adt.Tests.csproj -c Release
+mise exec -- bash scripts/test-e2e.sh
+```
+
+単体テストではパースと入出力処理を検証し、E2E テストでは実際のプロセスへ標準入力を渡して標準出力・標準エラー・終了コードを比較します。
