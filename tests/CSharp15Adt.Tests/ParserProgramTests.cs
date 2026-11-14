@@ -37,6 +37,8 @@ public sealed class ParserProgramTests
     [InlineData("1 2", "Unexpected character at position 2.")]
     [InlineData("1 / 0", "Division by zero.")]
     [InlineData("2147483647 + 1", "Arithmetic result is outside the Int32 range.")]
+    [InlineData("-2147483647 - 2", "Arithmetic result is outside the Int32 range.")]
+    [InlineData("2147483647 * 2", "Arithmetic result is outside the Int32 range.")]
     public void RunReportsInvalidInput(string text, string expected)
     {
         using var input = new StringReader(text);
