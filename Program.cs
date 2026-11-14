@@ -1,9 +1,7 @@
-using CSharp15Adt;
-using static CSharp15Adt.ExpressionOperations;
+using CSharp15Adt.Processing;
+using static CSharp15Adt.Processing.ExpressionOperations;
 
-Expr expression = new Add(
-    new Mul(new CInt(3), new CInt(2)),
-    new Div(new CInt(20), new CInt(5)));
+var expression = Parser.Parse("3 * 2 + 20 / 5");
 
 Console.WriteLine(Calculate(expression));
 Console.WriteLine(Format(expression));

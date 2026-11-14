@@ -1,4 +1,6 @@
-namespace CSharp15Adt;
+using CSharp15Adt.Data;
+
+namespace CSharp15Adt.Processing;
 
 internal static class ExpressionOperations
 {

@@ -1,4 +1,5 @@
-using static CSharp15Adt.ExpressionOperations;
+using CSharp15Adt.Data;
+using static CSharp15Adt.Processing.ExpressionOperations;
 using Xunit;
 
 namespace CSharp15Adt.Tests;

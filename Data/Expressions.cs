@@ -1,4 +1,4 @@
-namespace CSharp15Adt;
+namespace CSharp15Adt.Data;
 
 internal sealed record CInt(int Value);
 internal sealed record Add(Expr Left, Expr Right);

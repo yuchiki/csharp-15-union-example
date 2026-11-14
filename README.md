@@ -18,6 +18,12 @@ internal union Expr(CInt, Add, Sub, Mul, Div);
 
 ## 実行方法
 
+`Program.cs` では `Parser.Parse("3 * 2 + 20 / 5")` で式木を作り、評価と文字列整形を行います。パーサーは整数（0〜2147483647）、四則演算、括弧、単項の `+` / `-`、空白に対応します。乗除算は加減算より優先され、同じ優先順位の二項演算は左結合です。負号は `Sub(CInt(0), ...)` として表現します。不正な入力は位置付きの `FormatException` になります。
+
+- `Data/`: union とケースのデータ定義
+- `Processing/`: パーサー、評価、文字列整形
+- `Program.cs`: 文字列のパースから始める使用例
+
 ### 前提
 
 - [mise](https://mise.jdx.dev/getting-started.html)
