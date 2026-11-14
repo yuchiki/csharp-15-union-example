@@ -4,13 +4,14 @@ internal static class ParserProgram
 {
     internal static int Run(TextWriter output, TextWriter error, params string[] arguments)
     {
+        if (arguments.Length != 1)
+        {
+            error.WriteLine("Pass the expression as one quoted argument.");
+            return 1;
+        }
+
         try
         {
-            if (arguments.Length != 1)
-            {
-                throw new FormatException("Pass the expression as one quoted argument.");
-            }
-
             var expression = Parser.Parse(arguments[0]);
             output.WriteLine(ExpressionOperations.Calculate(expression));
             return 0;

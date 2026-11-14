@@ -33,15 +33,15 @@ internal union Expr(CInt, Add, Sub, Mul, Div);
 ```console
 mise trust
 mise install
-dotnet --version
+mise exec -- dotnet --version
 ```
 
-`11.0.100-rc.3.26522.148` と表示されれば準備完了です。これは現時点で最新の .NET 11 SDK です。`net11.0` を対象にすると C# 15 が既定で選択されるため、`LangVersion` の指定は不要です。
+`11.0.100` と表示されれば準備完了です。`net11.0` を対象にすると C# 15 が既定で選択されるため、`LangVersion` の指定は不要です。
 
 ### ビルドと実行
 
 ```console
-dotnet run --project csharp-15-adt.csproj -- '3 * 2 + 20 / 5'
+mise exec -- dotnet run --project csharp-15-adt.csproj -- '3 * 2 + 20 / 5'
 ```
 
 ```text

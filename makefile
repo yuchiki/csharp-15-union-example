@@ -5,10 +5,10 @@ EXPR ?= 3 * 2 + 20 / 5
 default: run
 
 build:
-	dotnet build
+	mise exec -- dotnet build
 
 run:
-	dotnet run --project csharp-15-adt.csproj -- "$(EXPR)"
+	mise exec -- dotnet run --project csharp-15-adt.csproj -- "$(EXPR)"
 
 clean:
-	dotnet clean
+	mise exec -- dotnet clean
