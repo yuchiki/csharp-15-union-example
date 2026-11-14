@@ -24,6 +24,8 @@ internal union Expr(CInt, Add, Sub, Mul, Div);
 - `Processing/`: パーサー、評価、文字列整形
 - `Program.cs`: 標準入出力を使うエントリーポイント
 
+入力は改行・空白も含め1024文字まで、括弧と単項符号による再帰の深さは64までです。上限超過も入力エラーとして報告します。
+
 ### 前提
 
 - [mise](https://mise.jdx.dev/getting-started.html)

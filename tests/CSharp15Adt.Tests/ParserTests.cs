@@ -7,6 +7,30 @@ namespace CSharp15Adt.Tests;
 public sealed class ParserTests
 {
     [Theory]
+    [InlineData('(')]
+    [InlineData('-')]
+    public void ParseRejectsExcessiveNesting(char prefix)
+    {
+        var text = new string(prefix, 65) + "1";
+        if (prefix == '(')
+        {
+            text += new string(')', 65);
+        }
+
+        Assert.Contains("maximum nesting depth", Assert.Throws<FormatException>(() => Parser.Parse(text)).Message);
+    }
+
+    [Fact]
+    public void ParseAndFormatLongLeftAssociatedExpression()
+    {
+        var text = string.Join("+", Enumerable.Repeat("1", 500));
+        var formatted = Format(Parser.Parse(text));
+
+        Assert.Equal(500, Calculate(Parser.Parse(text)));
+        Assert.Equal(499, formatted.Split("Add(").Length - 1);
+    }
+
+    [Theory]
     [InlineData("42", 42)]
     [InlineData("3 * 2 + 20 / 5", 10)]
     [InlineData("2 + 3 * 4", 14)]

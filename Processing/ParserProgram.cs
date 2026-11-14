@@ -6,7 +6,9 @@ internal static class ParserProgram
     {
         try
         {
-            var expression = Parser.Parse(input.ReadToEnd());
+            var buffer = new char[Parser.MaximumInputLength + 1];
+            var count = input.ReadBlock(buffer, 0, buffer.Length);
+            var expression = Parser.Parse(new string(buffer, 0, count));
             output.WriteLine(ExpressionOperations.Format(expression));
             return 0;
         }
