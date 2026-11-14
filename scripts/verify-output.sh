@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-readonly expected=$'10\nAdd(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))'
-actual="$(dotnet run --project csharp-15-adt.csproj --configuration Release --no-build)"
+readonly expected='10'
+actual="$(dotnet run --project csharp-15-adt.csproj --configuration Release --no-build -- '3 * 2 + 20 / 5')"
 readonly actual
 
 if [[ "$actual" != "$expected" ]]; then
