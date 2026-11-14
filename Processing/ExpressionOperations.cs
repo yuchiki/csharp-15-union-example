@@ -8,9 +8,9 @@ internal static class ExpressionOperations
     internal static int Calculate(Expr expression) => expression switch
     {
         CInt(var value) => value,
-        Add(var left, var right) => Calculate(left) + Calculate(right),
-        Sub(var left, var right) => Calculate(left) - Calculate(right),
-        Mul(var left, var right) => Calculate(left) * Calculate(right),
+        Add(var left, var right) => checked(Calculate(left) + Calculate(right)),
+        Sub(var left, var right) => checked(Calculate(left) - Calculate(right)),
+        Mul(var left, var right) => checked(Calculate(left) * Calculate(right)),
         Div(var left, var right) => Calculate(left) / Calculate(right),
     };
 

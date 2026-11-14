@@ -33,39 +33,29 @@ internal sealed class Parser
     }
 
     // expression = term (('+' | '-') term)*
-    private Expr ParseExpression()
-    {
-        var left = ParseTerm();
-        while (true)
-        {
-            if (Consume('+'))
-            {
-                left = new Add(left, ParseTerm());
-            }
-            else if (Consume('-'))
-            {
-                left = new Sub(left, ParseTerm());
-            }
-            else
-            {
-                return left;
-            }
-        }
-    }
+    private Expr ParseExpression() => ParseBinary(ParseTerm,
+        '+', (left, right) => new Add(left, right),
+        '-', (left, right) => new Sub(left, right));
 
     // term = factor (('*' | '/') factor)*
-    private Expr ParseTerm()
+    private Expr ParseTerm() => ParseBinary(ParseFactor,
+        '*', (left, right) => new Mul(left, right),
+        '/', (left, right) => new Div(left, right));
+
+    private Expr ParseBinary(Func<Expr> parseOperand,
+        char firstOperator, Func<Expr, Expr, Expr> createFirst,
+        char secondOperator, Func<Expr, Expr, Expr> createSecond)
     {
-        var left = ParseFactor();
+        var left = parseOperand();
         while (true)
         {
-            if (Consume('*'))
+            if (Consume(firstOperator))
             {
-                left = new Mul(left, ParseFactor());
+                left = createFirst(left, parseOperand());
             }
-            else if (Consume('/'))
+            else if (Consume(secondOperator))
             {
-                left = new Div(left, ParseFactor());
+                left = createSecond(left, parseOperand());
             }
             else
             {

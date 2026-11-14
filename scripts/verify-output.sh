@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-readonly expected='Add(Mul(CInt(3), CInt(2)), Div(CInt(20), CInt(5)))'
+readonly expected='10'
 actual="$(printf '%s\n' '3 * 2 + 20 / 5' | dotnet run --project csharp-15-adt.csproj --configuration Release --no-build)"
 readonly actual
 
