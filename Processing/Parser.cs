@@ -10,6 +10,7 @@ internal sealed class Parser
     private readonly string _input;
     private int _position;
     private int _depth;
+    private bool IsEOL => _position == _input.Length;
 
     private Parser(string input) => _input = input;
 
@@ -23,7 +24,7 @@ internal sealed class Parser
         var parser = new Parser(input);
         var expression = parser.ParseExpression();
         parser.SkipWhitespace();
-        if (parser._position != input.Length)
+        if (!parser.IsEOL)
         {
             throw parser.Error("Unexpected character");
         }
@@ -117,7 +118,7 @@ internal sealed class Parser
 
         SkipWhitespace();
         var start = _position;
-        while (_position < _input.Length && char.IsAsciiDigit(_input[_position]))
+        while (!IsEOL && char.IsAsciiDigit(_input[_position]))
         {
             _position++;
         }
@@ -139,7 +140,7 @@ internal sealed class Parser
     private bool Consume(char token)
     {
         SkipWhitespace();
-        if (_position == _input.Length || _input[_position] != token)
+        if (IsEOL || _input[_position] != token)
         {
             return false;
         }
@@ -150,7 +151,7 @@ internal sealed class Parser
 
     private void SkipWhitespace()
     {
-        while (_position < _input.Length && char.IsWhiteSpace(_input[_position]))
+        while (!IsEOL && char.IsWhiteSpace(_input[_position]))
         {
             _position++;
         }
