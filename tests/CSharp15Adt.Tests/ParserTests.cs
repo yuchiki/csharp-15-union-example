@@ -8,6 +8,20 @@ public sealed class ParserTests
 {
     [Theory]
     [InlineData('(')]
+    [InlineData('+')]
+    public void ParseAcceptsMaximumNesting(char prefix)
+    {
+        var text = new string(prefix, 64) + "1";
+        if (prefix == '(')
+        {
+            text += new string(')', 64);
+        }
+
+        Assert.Equal(1, Calculate(Parser.Parse(text)));
+    }
+
+    [Theory]
+    [InlineData('(')]
     [InlineData('-')]
     public void ParseRejectsExcessiveNesting(char prefix)
     {

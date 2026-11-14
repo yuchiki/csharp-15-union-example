@@ -76,7 +76,7 @@ internal sealed class Parser
     // factor = ('+' | '-') factor | '(' expression ')' | integer
     private Expr ParseFactor()
     {
-        if (_depth >= MaximumDepth)
+        if (_depth > MaximumDepth)
         {
             throw Error($"Expression exceeds maximum nesting depth {MaximumDepth}");
         }
